@@ -21,13 +21,19 @@ namespace PropertyWebApplication.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("PropertyDatabase", throwIfV1Schema: false)
         {
+            // Every time we start the system, the old database will be dropped (deleted) and a new one is created
+            Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseAlways<ApplicationDbContext>());
         }
 
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<PropertyWebApplication.Models.Locality> Localities { get; set; }
+
+        public System.Data.Entity.DbSet<PropertyWebApplication.Models.Property> Properties { get; set; }
     }
 }

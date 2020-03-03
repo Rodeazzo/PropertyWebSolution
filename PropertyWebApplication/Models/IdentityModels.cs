@@ -24,7 +24,10 @@ namespace PropertyWebApplication.Models
             : base("PropertyDatabase", throwIfV1Schema: false)
         {
             // Every time we start the system, the old database will be dropped (deleted) and a new one is created
-            Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseAlways<ApplicationDbContext>());
+            // Database.SetInitializer<ApplicationDbContext>(new DropCreateDatabaseAlways<ApplicationDbContext>());
+            
+            // Custom Initializer
+            Database.SetInitializer<ApplicationDbContext>(new ApplicationDBContextInitializer());
         }
 
         public static ApplicationDbContext Create()
@@ -35,5 +38,13 @@ namespace PropertyWebApplication.Models
         public System.Data.Entity.DbSet<PropertyWebApplication.Models.Locality> Localities { get; set; }
 
         public System.Data.Entity.DbSet<PropertyWebApplication.Models.Property> Properties { get; set; }
+    }
+
+    public class ApplicationDBContextInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    {
+        protected override void Seed(ApplicationDbContext context)
+        {
+            base.Seed(context);
+        }
     }
 }

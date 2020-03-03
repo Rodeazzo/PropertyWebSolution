@@ -20,5 +20,7 @@ namespace PropertyWebApplication.Models
 
         [System.ComponentModel.DataAnnotations.DataType(DataType.Date)]
         public DateTime Registered { get; set; }
+
+        public String ImageUrl { get; set; }
     }
 }

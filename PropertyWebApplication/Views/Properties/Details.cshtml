@@ -34,6 +34,13 @@
             @Html.DisplayFor(model => model.Registered)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </dt>
+
+        <dd>
+            <img id="Property Image" src="~/Images/@Model.ImageUrl" />
+        </dd>
     </dl>
 </div>
 <p>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PropertyWebApplication.Filters;
 using PropertyWebApplication.Models;
 
 namespace PropertyWebApplication.Controllers
@@ -33,6 +34,12 @@ namespace PropertyWebApplication.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (property.ImageUrl == null)
+            {
+                property.ImageUrl = "default.jpg";
+            }
+
             return View(property);
         }
 
@@ -48,6 +55,7 @@ namespace PropertyWebApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ExceptionLoggingFilter]
         public ActionResult Create([Bind(Include = "Id,LocalityId,Price,Registered")] Property property)
         {
             if (ModelState.IsValid)
